@@ -1,23 +1,26 @@
+from .configuration.config import Configuration
+from .configuration.tree import Tree
+from .lib.console import console
+from .client import Sona
 import discord
 
-intents = discord.Intents.all()
-intents.message_content = True
+__all__ = [
+    "Configuration",
+    "Tree",
+    "console",
+    "Sona"
+]
 
-client = discord.Client(intents=intents)
-tree = discord.app_commands.CommandTree(client)
+app  = Sona(configuration=Configuration())
+tree = Tree(app)
 
-from app.config.config import Config
+from .services.ping import ping
 
-config = Config()
+@tree.command(name="ping", description="Responds with 'Pong!'")
+async def ping_command(interaction):
+    await ping(interaction)
 
-@client.event
+@app.event
 async def on_ready():
-    await tree.sync(guild=discord.Object(config.get_guild_id))
-    print(f'Logged in as {client.user} (ID: {client.user.id})')
-
-@tree.command(name="ping", description=" with Pong!")
-async def ping(interaction: discord.Interaction):
-    await interaction.response.send_message("!")
-
-def run():
-    client.run(config.get_discord_token)
+    await tree.sync(guild=discord.Object(id=app.configuration.get_guild_id))
+    console.log("[bold green]Application commands synced![/bold green]")
