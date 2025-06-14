@@ -58,7 +58,7 @@ async def play_command(interaction: disnake.ApplicationCommandInteraction , song
 
     # Create FFmpeg audio source
     try:
-        source = disnake.FFmpegPCMAudio(url, **ffmpeg_options , executable="D:\\Projects\\Sona\\libs\\ffmpeg\\bin\\ffmpeg.exe")
+        source = disnake.FFmpegPCMAudio(url, **ffmpeg_options , executable="D:\\Projects\\Sona\\utils\\ffmpeg\\bin\\ffmpeg.exe")
     except Exception as e:
         await interaction.followup.send(f"Error creating audio source: {str(e)}", ephemeral=True)
         return
