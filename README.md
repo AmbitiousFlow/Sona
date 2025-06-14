@@ -9,22 +9,13 @@ Sona is a lightweight, feature-rich Discord application designed to enhance your
 ## Features
 
 ### 🛠️ Moderation Tools
-- Automated message filtering
-- User warning system
-- Kick/ban with reason logging
-- Role management utilities
 
-### 🎉 Fun & Engagement
-- Interactive games
-- Custom reaction roles
-- Server economy system
-- Meme generator commands
+- Kick/ban with reason logging
+
 
 ### 🎵 Media & Utilities
-- Music playback (YouTube, Spotify, SoundCloud)
-- Image manipulation commands
-- Server information dashboard
-- Customizable welcome messages
+
+- Music playback (YouTubed)
 
 ### 🤖 Automation
 - Scheduled messages
@@ -39,9 +30,6 @@ Sona is a lightweight, feature-rich Discord application designed to enhance your
 
 2. **Set up permissions:**  
    Ensure Sona has the necessary permissions for the features you want to use.
-
-3. **Configure settings:**  
-   Use `/setup` to configure default settings for your server.
 
 ## Usage
 
@@ -77,7 +65,5 @@ See our [Contribution Guidelines](CONTRIBUTING.md) for details.
 ## License
 
 Sona is licensed under the [MIT License](LICENSE).
-
----
 
 *"The humble companion for your Discord server"*
