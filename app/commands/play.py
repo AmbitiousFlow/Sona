@@ -3,7 +3,7 @@ sys.dont_write_bytecode = True
 import disnake
 import yt_dlp
 import asyncio
-from app.embeds.media_embed import media_embed
+from app.embeds.media import media_embed
 
 yt_options = {
         'format': 'bestaudio/best',

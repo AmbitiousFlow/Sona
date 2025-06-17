@@ -38,6 +38,14 @@ def main():
         from app.commands.play import play
         await play(interaction , song)
 
+    @app.slash_command(name="clear" , description="Delete a number of messages from the current channel.")
+    async def clear_command(interaction , amount:int):
+        """ 
+        
+        """
+        from app.commands.clear import clear
+        await clear(interaction , amount)
+
     @app.slash_command(name="profile", description="View your profile")
     async def profile_command(interaction, user: disnake.User = None):
         """
@@ -46,7 +54,7 @@ def main():
         from app.commands.profile import profile
         await profile(interaction, user)
 
-    @app.slash_command(name="stop", description="Stop Music")
+    @app.slash_command(name="stop", description="Stop the music and disconnect the bot.")
     async def stop_command(interaction, user: disnake.User = None):
         """
         
