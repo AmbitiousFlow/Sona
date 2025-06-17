@@ -3,11 +3,6 @@
 Overview
 Sona is a lightweight Discord application designed to enhance your server experience with minimal, fun features while maintaining a small footprint.
 
-# Features
-
-- 🧑‍🎤 Avatar Display : /profile
-- 🎵 Music Playback : /play song
-
 # Installation
 
 -  Invite Sona to your server:Click here to add Sona
