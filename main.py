@@ -24,38 +24,42 @@ Github : https://github.com/ambitiousflow
 
 
 def main():
-    console = Console()
     """
-    Main entry point for the Discord bot application.
+    Main entry point for the Discord bot application.\n
     Initializes the bot and starts it with the provided token.
     """
+    console = Console()
     settings = load_discord_settings()
-
     @app.slash_command(name="play" , description="Play a music from youtube")
-    async def play(interaction , song:str):
-        """
+    async def play_command(interaction , song:str):
+        """ 
         
         """
-        from app.commands.play_command import play_command
-        await play_command(interaction , song)
+        from app.commands.play import play
+        await play(interaction , song)
 
     @app.slash_command(name="profile", description="View your profile")
-    async def profile(interaction, user: disnake.User = None):
+    async def profile_command(interaction, user: disnake.User = None):
         """
-        Handles the profile command interaction.
-        Returns the user's profile embed.
-        """
-        from app.commands.profile_command import profile_command
         
+        """
+        from app.commands.profile import profile
+        await profile(interaction, user)
 
-        await profile_command(interaction, user)
+    @app.slash_command(name="stop", description="Stop Music")
+    async def stop_command(interaction, user: disnake.User = None):
+        """
+        
+        """
+        from app.commands.stop import stop
+        await stop(interaction)
 
     console.clear()
     console.print(LOGO)
 
     @app.event
     async def on_ready():
-        console.log("[green]Discord Client Started ![/]")
+        console.log(f"[green] 📦 Loaded {len(app.application_commands)} commands [/]")
 
     time.sleep(2)
 

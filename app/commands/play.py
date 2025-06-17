@@ -1,9 +1,9 @@
 import sys
 sys.dont_write_bytecode = True
 import disnake
-
 import yt_dlp
 import asyncio
+from app.embeds.media_embed import media_embed
 
 yt_options = {
         'format': 'bestaudio/best',
@@ -26,7 +26,7 @@ ffmpeg_options = {
     'options': '-vn',
 }
 
-async def play_command(interaction: disnake.ApplicationCommandInteraction , song : str):
+async def play(interaction: disnake.ApplicationCommandInteraction , song : str):
     """Play a song from YouTube in the user's voice channel."""
     await interaction.response.defer()
 
@@ -51,12 +51,11 @@ async def play_command(interaction: disnake.ApplicationCommandInteraction , song
             if 'entries' in info:
                 info = info['entries'][0]
             url = info['url']
-            title = info.get('title', 'Unknown Title')
+            
     except Exception as e:
         await interaction.followup.send(f"Error finding song: {str(e)}", ephemeral=True)
         return
-
-    # Create FFmpeg audio source
+    
     try:
         source = disnake.FFmpegPCMAudio(url, **ffmpeg_options , executable="D:\\Projects\\Sona\\utils\\ffmpeg\\bin\\ffmpeg.exe")
     except Exception as e:
@@ -66,9 +65,9 @@ async def play_command(interaction: disnake.ApplicationCommandInteraction , song
     # Play the audio
     try:
         if voice_client.is_playing():
-            voice_client.stop()  # Stop current song if playing
+            voice_client.stop() 
         voice_client.play(source, after=lambda e: print(f"🎶Player error: {e}") if e else None)
-        await interaction.followup.send(f"Now playing: **{title}**")
+        await interaction.followup.send(embed=media_embed(interaction , info))
     except Exception as e:
         await interaction.followup.send(f"Error playing song: {str(e)}", ephemeral=True)
         return

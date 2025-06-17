@@ -1,21 +1,13 @@
+from disnake import Embed, ApplicationCommandInteraction, User
 from datetime import datetime
-from disnake import Embed, ApplicationCommandInteraction
-import disnake
 import os
 
-
-def profile_embed(
-    interaction: ApplicationCommandInteraction, user: disnake.User = None
-) -> Embed:
-
-    if user is None:
-        author = interaction.author
-    else:
-        author = user
+def profile_embed(interaction: ApplicationCommandInteraction, user: User = None) -> Embed:
+    author = user or interaction.author
 
     profile_embed = Embed(
-        title="User's Profile",
-        description='_"Art is something everyone can share."_',
+        title=f"{author.display_name}'s Profile 🎭",
+        description="> _“Art is something everyone can share.”_",
         colour=0x00B7FF,
         timestamp=datetime.now(),
     )
@@ -25,18 +17,21 @@ def profile_embed(
         icon_url=os.getenv("DISCORD_BOT_AVATAR"),
     )
 
-    profile_embed.add_field(name="**Username**", value=author.name, inline=True)
-    profile_embed.add_field(
-        name="**Display Name**", value=author.display_name, inline=True
-    )
-    profile_embed.add_field(name="Is Bot", value=author.bot, inline=True)
-    profile_embed.add_field(name="Joined Discord", value=author.joined_at, inline=True)
-
     profile_embed.set_thumbnail(url=author.display_avatar.url)
 
+    # Basic Identity
+    profile_embed.add_field(name="👤 Username", value=f"`{author.name}`", inline=True)
+    profile_embed.add_field(name="📛 Display Name", value=f"`{author.display_name}`", inline=True)
+    profile_embed.add_field(name="🤖 Bot", value="Yes" if author.bot else "No", inline=True)
+
+    # Join Date
+    if hasattr(author, "joined_at") and author.joined_at:
+        joined_date = author.joined_at.strftime("%B %d, %Y")
+        profile_embed.add_field(name="📅 Joined Discord", value=joined_date, inline=False)
+
+    # Footer with personality
     profile_embed.set_footer(
-        text='"A wrong note is just...a happy little accident."',
-        icon_url="https://slate.dan.onl/slate.png",
+        text="🎨 “A wrong note is just... a happy little accident.”",
     )
 
     return profile_embed

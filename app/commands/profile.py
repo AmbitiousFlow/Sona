@@ -4,7 +4,7 @@ from app.embeds.profile_embed import profile_embed
 import disnake
 
 
-async def profile_command(interaction: disnake.ApplicationCommandInteraction , user:disnake.User=None):
+async def profile(interaction: disnake.ApplicationCommandInteraction , user:disnake.User=None):
     """
     Handles the profile command interaction.
     Returns the user's profile embed.
