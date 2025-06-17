@@ -5,6 +5,7 @@ from app.configuration.settings import load_discord_settings
 from app.app import app
 import disnake
 from rich.console import Console
+from datetime import datetime
 
 import time
 
@@ -30,36 +31,38 @@ def main():
     """
     console = Console()
     settings = load_discord_settings()
-    @app.slash_command(name="play" , description="Play a music from youtube")
-    async def play_command(interaction , song:str):
-        """ 
-        
-        """
-        from app.commands.play import play
-        await play(interaction , song)
 
-    @app.slash_command(name="clear" , description="Delete a number of messages from the current channel.")
-    async def clear_command(interaction , amount:int):
-        """ 
-        
-        """
+    @app.slash_command(name="play", description="Play a music from youtube")
+    async def play_command(interaction, song: str):
+        """ """
+        from app.commands.play import play
+
+        await play(interaction, song)
+
+    @app.slash_command(
+        name="clear",
+        description="Delete a number of messages from the current channel.",
+    )
+    async def clear_command(interaction, amount: int):
+        """ """
         from app.commands.clear import clear
-        await clear(interaction , amount)
+
+        await clear(interaction, amount)
 
     @app.slash_command(name="profile", description="View your profile")
     async def profile_command(interaction, user: disnake.User = None):
-        """
-        
-        """
+        """ """
         from app.commands.profile import profile
+
         await profile(interaction, user)
 
-    @app.slash_command(name="stop", description="Stop the music and disconnect the bot.")
+    @app.slash_command(
+        name="stop", description="Stop the music and disconnect the bot."
+    )
     async def stop_command(interaction, user: disnake.User = None):
-        """
-        
-        """
+        """ """
         from app.commands.stop import stop
+
         await stop(interaction)
 
     console.clear()
@@ -67,6 +70,14 @@ def main():
 
     @app.event
     async def on_ready():
+        activity = disnake.Activity(
+            type=disnake.ActivityType.listening,
+            name="Midnight Jam Sessions 🎧",
+            details="Invite-only chillwave party",
+            state="🎉 Vibing with creators",
+        )
+
+        await app.change_presence(activity=activity, status=disnake.Status.idle)
         console.log(f"[green] 📦 Loaded {len(app.application_commands)} commands [/]")
 
     time.sleep(2)
