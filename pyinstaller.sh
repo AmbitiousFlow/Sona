@@ -1,0 +1,1 @@
+pyinstaller --noconfirm --onedir --console --icon "D:\Projects\Sona\libs\profile.ico" --add-data "D:\Projects\Sona\.env;."  "D:\Projects\Sona\main.py"

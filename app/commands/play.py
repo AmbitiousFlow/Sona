@@ -3,7 +3,13 @@ sys.dont_write_bytecode = True
 import disnake
 import yt_dlp
 import asyncio
-from app.embeds.media import media_embed
+from app.embeds.media_embed import media_embed
+
+import os
+
+CURRENT_DIR = os.path.dirname(__file__)
+APP_DIR = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+ffmpeg_path = os.path.join(APP_DIR, "utils", "ffmpeg", "bin", "ffmpeg.exe")
 
 yt_options = {
         'format': 'bestaudio/best',
@@ -57,7 +63,7 @@ async def play(interaction: disnake.ApplicationCommandInteraction , song : str):
         return
     
     try:
-        source = disnake.FFmpegPCMAudio(url, **ffmpeg_options , executable="D:\\Projects\\Sona\\utils\\ffmpeg\\bin\\ffmpeg.exe")
+        source = disnake.FFmpegPCMAudio(url, **ffmpeg_options , executable=ffmpeg_path)
     except Exception as e:
         await interaction.followup.send(f"Error creating audio source: {str(e)}", ephemeral=True)
         return
