@@ -36,6 +36,7 @@ async def play(interaction: disnake.ApplicationCommandInteraction , song : str):
     """Play a song from YouTube in the user's voice channel."""
     await interaction.response.defer()
 
+
     if not interaction.user.voice or not interaction.user.voice.channel:
         await interaction.followup.send("You need to be in a voice channel to play music!", ephemeral=True)
         return
