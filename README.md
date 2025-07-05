@@ -34,4 +34,3 @@ See our Contribution Guidelines for details.
 
 # License
 Sona is licensed under the MIT License.
-"The humble companion for your Discord server"
