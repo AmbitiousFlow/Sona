@@ -14,7 +14,8 @@ Sona is a lightweight Discord application designed to enhance your server experi
 Basic Commands
 
 - /profile - Displays a user's profile
--  /play song - Plays a song from YouTube
+- /play song - Plays a song from YouTube
+- /clear - Clear Messages
 
 # Support
 
